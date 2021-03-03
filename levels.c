@@ -1,7 +1,8 @@
 /* Exracts level information from the Dangerous Dave binary
 *  Data is stored in levelx.dat
+*  courtsey : http://www.maizure.org/projects/index.html
 */
-//courtsey : http://www.maizure.org/projects/index.html
+
 
 
 #include <stdio.h>
