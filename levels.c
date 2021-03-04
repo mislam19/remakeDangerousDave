@@ -27,6 +27,11 @@ int main(int argc, char* argv[])
 	/* Open EXE file and go to level data */
 	FILE *fin;
 	fin = fopen("DAVE.EXE","rb");
+    if(fin == NULL)
+    {
+        fprintf(stderr, "Could not open DAVE.exe.\n");
+        exit(0);
+    }
 	fseek (fin, level_addr, SEEK_SET);
 	
 	/* Stream level data to memory and output files */
