@@ -9,6 +9,9 @@ OBJ_LEVELS = levels
 SRC_TILES = tiles.c
 OBJ_TILES = tiles 
 
+SRC_EXAMPLE_GAME = example_game.c
+OBJ_EXAMPLE_GAME = example_game
+
 levels_extractor: $(SRC_LEVEL)
 				echo "Building levels_extractor"
 				$(CC) $(SRC_LEVEL) $(INCS) $(LIBS) $(CFLAGS) -o $(OBJ_LEVELS)
@@ -16,6 +19,12 @@ levels_extractor: $(SRC_LEVEL)
 tiles_extractor: $(SRC_TILES)
 				echo "Building levels_extractor"
 				$(CC) $(SRC_TILES) $(INCS) $(LIBS) $(CFLAGS) -o $(OBJ_TILES)
+
+example_game: $(SRC_EXAMPLE_GAME)
+				echo "The example c89 Game"
+				$(CC) $(SRC_EXAMPLE_GAME) $(INCS) $(LIBS) $(CFLAGS) -o $(OBJ_EXAMPLE_GAME)
+
+
 clean :
 		rm -r *.dat 
 		rm -r *.bmp
