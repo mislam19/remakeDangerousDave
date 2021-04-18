@@ -3,11 +3,11 @@ INCS = -I/usr/include/SDL2
 CFLAGS = -std=c89 -Wall
 LIBS = $(shell sdl2-config --libs)
 
-SRC_LEVEL = levels.c
-OBJ_LEVELS = levels 
+SRC_LEVEL = utils/levels.c
+OBJ_LEVELS = utils/levels 
 
-SRC_TILES = tiles.c
-OBJ_TILES = tiles 
+SRC_TILES = utils/tiles.c
+OBJ_TILES = utils/tiles 
 
 SRC_EXAMPLE_GAME = example_game.c
 OBJ_EXAMPLE_GAME = example_game

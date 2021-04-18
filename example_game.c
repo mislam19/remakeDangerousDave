@@ -28,68 +28,7 @@
 /* Quick conversion between grid and pixel basis */
 const uint8_t TILE_SIZE = 16;
 
-/* Entry point */
-int main(int argc, char* argv[])
-{
-	SDL_Window *window;
-	SDL_Renderer *renderer;
-	const uint8_t DISPLAY_SCALE = 3;
-	uint32_t timer_begin;
-	uint32_t timer_end;
-	uint32_t delay;
 
-	struct game_state *game;
-	struct game_assets *assets;
-
-	/* Initialize game state */
-	game = malloc(sizeof(struct game_state));
-	init_game(game);
-
-	/* Initialize SDL */
-	if (SDL_Init(SDL_INIT_VIDEO))
-		SDL_Log("SDL error: %s", SDL_GetError());
-		printf("SDL error: %s", SDL_GetError());
-
-	if (SDL_CreateWindowAndRenderer(320 * DISPLAY_SCALE, 200 * DISPLAY_SCALE, 0, &window, &renderer))
-		SDL_Log("Window/Renderer error: %s", SDL_GetError());
-
-	/* Easy onversion between original world (320x200) and current screen size */
-	SDL_RenderSetScale(renderer, DISPLAY_SCALE, DISPLAY_SCALE);
-
-	/* Initialize assets */
-	assets = malloc(sizeof(struct game_assets));
-	init_assets(assets, renderer);
-
-	/* Clear screen */
-	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
-	SDL_RenderClear(renderer);
-
-	/* Start level 1 */
-	start_level(game);
-
-	/* Game loop with fixed time step at 30 FPS*/
-	while (!game->quit)
-	{
-		timer_begin = SDL_GetTicks();
-
-		check_input(game);
-		update_game(game);
-		render(game, renderer, assets);
-
-		timer_end = SDL_GetTicks();
-
-		delay = 33 - (timer_end-timer_begin);
-		delay = delay > 33 ? 0 : delay;
-		SDL_Delay(delay);
-	}
-
-	/* Clean up and quit */
-	SDL_Quit();
-	free(game);
-	free(assets);
-
-	return 0;
-}
 
 /* Set game and monster properties to default values */
 void init_game(struct game_state *game)
@@ -1356,3 +1295,84 @@ uint8_t is_clear(struct game_state *game, uint16_t px, uint16_t py, uint8_t is_d
 
 	game->score += new_score;
 }
+
+
+/* Entry point */
+int real_main(void)
+{
+	printf("Starting main __\n");
+	
+	SDL_Window *window;
+	SDL_Renderer *renderer;
+	
+	const uint8_t DISPLAY_SCALE = 3;
+	uint32_t timer_begin;
+	uint32_t timer_end;
+	uint32_t delay;
+
+	struct game_state *game;
+	struct game_assets *assets;
+	printf("Initialize some game variables\n");
+	
+	/* Initialize game state */
+
+	game = malloc(sizeof(struct game_state));
+	printf("Malloced game stated\n");
+	
+	init_game(game);
+	#if 1
+	/* Initialize SDL */
+	if (SDL_Init(SDL_INIT_VIDEO))
+	{
+		SDL_Log("SDL error: %s", SDL_GetError());
+		printf("SDL error: %s", SDL_GetError());
+	}
+		
+	if (SDL_CreateWindowAndRenderer(320 * DISPLAY_SCALE, 200 * DISPLAY_SCALE, 0, &window, &renderer))
+		SDL_Log("Window/Renderer error: %s", SDL_GetError());
+
+	/* Easy onversion between original world (320x200) and current screen size */
+	SDL_RenderSetScale(renderer, DISPLAY_SCALE, DISPLAY_SCALE);
+
+	/* Initialize assets */
+	assets = malloc(sizeof(struct game_assets));
+	init_assets(assets, renderer);
+
+	/* Clear screen */
+	SDL_SetRenderDrawColor(renderer, 0x00, 0x00, 0x00, 0x00);
+	SDL_RenderClear(renderer);
+
+	/* Start level 1 */
+	start_level(game);
+
+	/* Game loop with fixed time step at 30 FPS*/
+	while (!game->quit)
+	{
+		timer_begin = SDL_GetTicks();
+
+		check_input(game);
+		update_game(game);
+		render(game, renderer, assets);
+
+		timer_end = SDL_GetTicks();
+
+		delay = 33 - (timer_end-timer_begin);
+		delay = delay > 33 ? 0 : delay;
+		SDL_Delay(delay);
+	}
+
+	/* Clean up and quit */
+	SDL_Quit();
+	free(game);
+	free(assets);
+	#endif
+	return 0;
+}
+
+int main()
+{
+	printf("my entrypoint\n");
+	real_main();
+	return 0;
+}
+
