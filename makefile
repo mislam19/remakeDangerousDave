@@ -1,6 +1,6 @@
 CC = gcc
 INCS = -I/usr/include/SDL2
-CFLAGS = -std=c89 -Wall
+CFLAGS = -std=c89 -Wall -g
 LIBS = $(shell sdl2-config --libs)
 
 SRC_LEVEL = utils/levels.c
@@ -30,4 +30,7 @@ clean :
 		rm -r *.bmp
 		rm -r $(OBJ_LEVELS) 
 		
+help:
+	cat makehelp.txt
+	
 
